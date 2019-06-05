@@ -39,6 +39,16 @@ public class Imagem {
     }
 
 	
+	
+	
+	public Ponto getTopoEsquerdo() {
+		return topoEsquerdo;
+	}
+
+	public void setTopoEsquerdo(Ponto topoEsquerdo) {
+		this.topoEsquerdo = topoEsquerdo;
+	}
+
 	public int getX() {
 		return (int)(this.topoEsquerdo.getX());
 	}
