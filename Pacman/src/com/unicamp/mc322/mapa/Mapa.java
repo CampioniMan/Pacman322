@@ -10,7 +10,8 @@ import java.util.Objects;
 import java.util.Random;
 
 import com.unicamp.mc322.pacman.funcionalities.Imagem;
-import com.unicamp.mc322.pacman.posicionamento.Ponto;
+import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
+import com.unicamp.mc322.pacman.posicionamento.Quadrado;
 
 public class Mapa {
 	
@@ -29,15 +30,15 @@ public class Mapa {
 	}
 	
 	public void desenhaMapa(Graphics g) {
-		Imagem imagemParede = new Imagem(pathParede, new Ponto(0,0), new Ponto(1.0f,1.0f));
-		Imagem imagemComida = new Imagem(pathComidaPacman, new Ponto(0,0), new Ponto(1.0f,1.0f));
+		Imagem imagemParede = new Imagem(pathParede, new ParOrdenado(0,0), new Quadrado(0, 0, 16, 16));
+		Imagem imagemComida = new Imagem(pathComidaPacman, new ParOrdenado(0,0), new Quadrado(0, 0, 16, 16));
  		for (int i = 0; i < this.largura; i++) {
 			for (int j = 0; j < altura; j++) {
 				if (mapa[i][j].equals(ComponentesMapa.PAREDE.getValor())) {
-					imagemParede.setTopoEsquerdo(new Ponto(i*16, j*16));
+					imagemParede.setTopoEsquerdo(new ParOrdenado(i*16, j*16));
 					imagemParede.draw(g);
 				} else if (mapa[i][j].equals(ComponentesMapa.COMIDA.getValor())) {
-					imagemComida.setTopoEsquerdo(new Ponto(i*16, j*16));
+					imagemComida.setTopoEsquerdo(new ParOrdenado(i*16, j*16));
 					imagemComida.draw(g);
 				}
 			}
@@ -120,7 +121,4 @@ public class Mapa {
 	public void setLargura(Integer largura) {
 		this.largura = largura;
 	}
-	
-	
-
 }
