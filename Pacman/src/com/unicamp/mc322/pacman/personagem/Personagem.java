@@ -11,8 +11,9 @@ public abstract class Personagem {
 	private ParOrdenado posicao;
 	private float velocidade;
 		
-	public Personagem(Quadrado colider, String pathPraSkin) {
+	public Personagem(Quadrado colider, String pathPraSkin, ParOrdenado posicao) {
 		this.colider = colider;
+		this.posicao = posicao;
 		this.skin = new Imagem(pathPraSkin, posicao, colider);
 	}
 	
