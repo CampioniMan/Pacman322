@@ -31,8 +31,8 @@ public class Game implements Runnable {
         }
         
         try {
-        	mapa.geraMapa();
-        	mapa.leMapa();
+        //	mapa.getMapaAleatorio();
+        	mapa.getMapaArquivo();
         } catch (Exception e) {
 			// TODO: handle exception
 		}
