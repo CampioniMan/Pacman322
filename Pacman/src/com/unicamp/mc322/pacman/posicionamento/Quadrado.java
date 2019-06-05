@@ -10,6 +10,12 @@ public class Quadrado {
 		this.valeDireito = valeDireito;
 	}
 	
+	public Quadrado(float topoEsquerdoX, float topoEsquerdoY, float valeDireitoX, float valeDireitoY) {
+		super();
+		this.topoEsquerdo = new ParOrdenado(topoEsquerdoX, topoEsquerdoY);
+		this.valeDireito = new ParOrdenado(valeDireitoX, valeDireitoY);
+	}
+	
 	public ParOrdenado getTopoEsquerdo() {
 		return topoEsquerdo;
 	}

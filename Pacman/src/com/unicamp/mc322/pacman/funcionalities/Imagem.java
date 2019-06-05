@@ -38,8 +38,15 @@ public class Imagem {
         g2d.dispose();
         return resized;
     }
-
 	
+	public ParOrdenado getTopoEsquerdo() {
+		return topoEsquerdo;
+	}
+
+	public void setTopoEsquerdo(ParOrdenado topoEsquerdo) {
+		this.topoEsquerdo = topoEsquerdo;
+	}
+
 	public int getX() {
 		return (int)(this.topoEsquerdo.getX());
 	}
