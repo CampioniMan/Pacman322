@@ -18,8 +18,8 @@ public class Mapa {
 	private Integer largura;
 	
 	private Character[][] mapa;
-	private final String pathParede = "src/com/unicamp/mc322/pacman/image/parede.png";
-	private final String pathComidaPacman = "src/com/unicamp/mc322/pacman/image/comida.png";
+	private final String pathParede = "src/sprites/wall/parede.png";
+	private final String pathComidaPacman = "src/sprites/food/comida.png";
 	
 	
 	public Mapa(Integer altura, Integer largura) {
@@ -95,7 +95,7 @@ public class Mapa {
 			}
 		}
 
-		File file = new File("arquivo.txt");
+		File file = new File("maparquivo.txt");
 		FileWriter writer = new FileWriter(file) ;
 		BufferedWriter buff = new BufferedWriter(writer);
 		System.out.print(file.getAbsolutePath());
