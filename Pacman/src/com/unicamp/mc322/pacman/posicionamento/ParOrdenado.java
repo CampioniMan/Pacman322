@@ -1,9 +1,9 @@
 package com.unicamp.mc322.pacman.posicionamento;
 
-public class Ponto {
+public class ParOrdenado {
 	float x, y;
 
-	public Ponto(float x, float y) {
+	public ParOrdenado(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}

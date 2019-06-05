@@ -6,35 +6,40 @@ import com.unicamp.mc322.pacman.funcionalities.*;
 import com.unicamp.mc322.pacman.posicionamento.*;
 
 public abstract class Personagem {
-	Quadrado colider;
-	Imagem skin;
+	private Quadrado colider;
+	private Imagem skin;
+	private ParOrdenado posicao;
+	private float velocidade;
 		
-	public Personagem(Ponto posicaoInicial, String pathPraSkin, Ponto escala) {
-		this.posicao = posicaoInicial;
-		this.skin = new Imagem(pathPraSkin, posicaoInicial, escala);
+	public Personagem(Quadrado colider, String pathPraSkin) {
+		this.colider = colider;
+		this.skin = new Imagem(pathPraSkin, posicao, colider);
 	}
 	
-	public void mover(int variacaoEixoX, int variacaoEixoY) {
-		this.moverEixoX(variacaoEixoX);
-		this.moverEixoY(variacaoEixoY);
+	public void mover(Direcao direcao) {
+		if (direcao == Direcao.CIMA) {
+			this.moverEixoY(velocidade);
+		}
+		else if (direcao == Direcao.BAIXO) {
+			this.moverEixoY(-velocidade);
+		}
+		else if (direcao == Direcao.DIREITA) {
+			this.moverEixoX(velocidade);
+		}
+		else { // ESQUERDA
+			this.moverEixoX(-velocidade);
+		}
 	}
 	
-	public void moverEixoX(int variacaoEixoX) {
+	private void moverEixoX(float variacaoEixoX) {
 		this.posicao.addX(variacaoEixoX);
 	}
 	
-	public void moverEixoY(int variacaoEixoY) {
+	private void moverEixoY(float variacaoEixoY) {
 		this.posicao.addY(variacaoEixoY);
 	}
 	
 	public void draw(Graphics g) {
 		this.skin.draw(g);
-	}
-	
-	public boolean colidiuCom(Personagem outro) {
-		if () {
-			
-		}
-	}
-	
+	}	
 }

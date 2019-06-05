@@ -7,7 +7,8 @@ import java.awt.image.BufferStrategy;
 import java.util.HashMap;
 
 import com.unicamp.mc322.pacman.funcionalities.*;
-import com.unicamp.mc322.pacman.posicionamento.Ponto;
+import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
+import com.unicamp.mc322.pacman.posicionamento.Quadrado;
 
 public class Game implements Runnable {
 	private Display display;
@@ -96,7 +97,8 @@ public class Game implements Runnable {
     }
 	
 	private void init() {
-		planoDeFundo = new Imagem(pathProPlanoDeFundo, new Ponto(0,0), new Ponto(6.25f,6.25f));
+		planoDeFundo = new Imagem(pathProPlanoDeFundo, new ParOrdenado(0,0), new Quadrado(new ParOrdenado(0f, 0f),
+				new ParOrdenado(16f, 16f)));
         display = new Display("draw image", tamanhoTela, tamanhoTela);
     }
 }

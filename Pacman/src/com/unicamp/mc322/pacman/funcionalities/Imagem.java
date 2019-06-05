@@ -9,16 +9,17 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.unicamp.mc322.pacman.posicionamento.Ponto;
+import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
+import com.unicamp.mc322.pacman.posicionamento.Quadrado;
 
 public class Imagem {
 	BufferedImage img;
-	Ponto topoEsquerdo, escala;
+	ParOrdenado topoEsquerdo;
+	Quadrado tamanhoFinal;
 	
-	public Imagem(String path, Ponto topoEsquerdo, Ponto escala) {
-		
-		this.escala = escala;
+	public Imagem(String path, ParOrdenado topoEsquerdo, Quadrado tamanhoFinal) {
 		this.topoEsquerdo = topoEsquerdo;
+		this.tamanhoFinal = tamanhoFinal;
 		try {
 			this.img = ImageIO.read(new File(path));
 			this.img = resize(this.img, getAltura(), getLargura());
@@ -56,11 +57,11 @@ public class Imagem {
 	}
 	
 	private int getAltura() {
-		return (int)(this.img.getHeight() * escala.getY());
+		return (int)(this.img.getHeight() * tamanhoFinal.getAltura());
 	}
 	
 	private int getLargura() {
-		return (int)(this.img.getWidth() * escala.getX());
+		return (int)(this.img.getWidth() * tamanhoFinal.getLargura());
 	}
 	
 	public void draw(Graphics g) {
