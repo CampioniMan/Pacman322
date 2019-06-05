@@ -21,6 +21,8 @@ public class Mapa {
 	private Character[][] mapa;
 	private final String pathParede = "src/sprites/wall/parede.png";
 	private final String pathComidaPacman = "src/sprites/food/comida.png";
+	private final String pathMapa = "src/map/randMap/mapa.txt";
+	private final Integer qtdMapsDefault = 2;
 	
 	
 	public Mapa(Integer altura, Integer largura) {
@@ -30,8 +32,8 @@ public class Mapa {
 	}
 	
 	public void desenhaMapa(Graphics g) {
-		Imagem imagemParede = new Imagem(pathParede, new ParOrdenado(0,0), new Quadrado(0, 0, 16, 16));
-		Imagem imagemComida = new Imagem(pathComidaPacman, new ParOrdenado(0,0), new Quadrado(0, 0, 16, 16));
+		Imagem imagemParede = new Imagem(pathParede, new ParOrdenado(0,0), new Quadrado(0, 0, 1, 1));
+		Imagem imagemComida = new Imagem(pathComidaPacman, new ParOrdenado(0,0), new Quadrado(0, 0, 1, 1));
  		for (int i = 0; i < this.largura; i++) {
 			for (int j = 0; j < altura; j++) {
 				if (mapa[i][j].equals(ComponentesMapa.PAREDE.getValor())) {
@@ -45,17 +47,17 @@ public class Mapa {
  		}
 	}
 	
-	public void leMapa() throws Exception{
-		File file = new File("arquivo.txt");
+	public void leMapa(String arquivo) throws Exception{
+		File file = new File(arquivo);
 		FileReader reader = new FileReader(file);
 		BufferedReader buff = new BufferedReader(reader);
 		String line = null;
 		altura = 0;
 		line = buff.readLine();
-		for (int j = 0; Objects.nonNull(line); j++) {
+		for (int i = 0; Objects.nonNull(line); i++) {
 			altura++;
-			for(int i = 0; i < line.length();i++) {
-				mapa[i][j] = line.charAt(i);
+			for(int j = 0; j < line.length();j++) {
+				mapa[j][i] = line.charAt(j);
 			}
 			line = buff.readLine();
 		} 
@@ -77,14 +79,13 @@ public class Mapa {
 		return (j == 1 && i == 1);
 	}
 	
-	public void geraMapa() throws Exception {
-		
-		
+	
+	public void getMapaAleatorio() throws Exception{
 		for (int i = 0; i < altura;i++) {
 			for (int j = 0; j< largura; j++) {
-				if (inicioFantasma(j, i) || inicioPacman(j,i))
+				if (inicioFantasma(i, j) || inicioPacman(i,j))
 					mapa[i][j] = ComponentesMapa.VAZIO.getValor();
-				else if (paredeDefault(j,i)) 
+				else if (paredeDefault(i,j)) 
 					mapa[i][j] = ComponentesMapa.PAREDE.getValor();
 				else {
 					Random num =  new Random();
@@ -95,8 +96,17 @@ public class Mapa {
 				}
 			}
 		}
+		salvaMapaArquivo(pathMapa);
+	}
+	
+	public void getMapaArquivo() throws Exception {
+		String arq = "src/map/defaults/mapa"+((new Random()).nextInt(qtdMapsDefault) + 1) + ".txt";
+		leMapa(arq);
+	}
+	
+	public void salvaMapaArquivo(String arquivo) throws Exception {
 
-		File file = new File("maparquivo.txt");
+		File file = new File(arquivo);
 		FileWriter writer = new FileWriter(file) ;
 		BufferedWriter buff = new BufferedWriter(writer);
 		System.out.print(file.getAbsolutePath());
