@@ -20,7 +20,7 @@ public class Game implements Runnable {
     
     private final int tamanhoTela = 512;
     private final String pathProPlanoDeFundo = "/home/cc2018-ceb/ra214777/Downloads/7b000e9a5060837b7e018c42bf166486e66ed44cr1-1150-2048v2_128.jpg";
-    private HashMap<Integer, Boolean> keyPressed = new HashMap<>();
+    private ControleBotao controleBotao = new ControleBotao();	
     
     Imagem planoDeFundo;
     private Mapa mapa = new Mapa(32,32);
@@ -67,23 +67,9 @@ public class Game implements Runnable {
     }
 	
 	public void render(Graphics g) {
-//        display.getCanvas().addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//                super.keyTyped(e);
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                super.keyPressed(e);
-//                keyPressed.put(e.getKeyCode(), true);
-//            }
-//
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//                keyPressed.put(e.getKeyCode(), false);
-//            }
-//        });
+		display.panel.addKeyListener(controleBotao.getKeyAdapter());  
+        display.panel.setFocusable(true);
+        display.panel.requestFocusInWindow();
         
         planoDeFundo.draw(g);
         mapa.desenhaMapa(g);
