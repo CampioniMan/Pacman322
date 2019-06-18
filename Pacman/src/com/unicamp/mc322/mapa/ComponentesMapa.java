@@ -1,7 +1,7 @@
 package com.unicamp.mc322.mapa;
 
 public enum ComponentesMapa {
-	PAREDE('#'), VAZIO('0'), COMIDA('.');
+	PAREDE('#'), VAZIO('0'), COMIDA('.'), POWERUP('*');
 	private final Character valor;
 	
 	ComponentesMapa(Character valor) {

@@ -10,18 +10,23 @@ import java.util.HashMap;
 
 import com.unicamp.mc322.mapa.Mapa;
 import com.unicamp.mc322.pacman.funcionalities.*;
+import com.unicamp.mc322.pacman.pontos.PontosController;
+import com.unicamp.mc322.pacman.pontos.PowerUpController;
 import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
 import com.unicamp.mc322.pacman.posicionamento.Quadrado;
+import com.unicamp.mc322.parede.ParedeController;
 
 public class Game implements Runnable {
 	private Display display;
     private boolean running;
     private Thread t;
-    
+    private int placar = 0;
+    private PontosController pontosController = new PontosController();
+    private ParedeController paredeController = new ParedeController();
+    private PowerUpController powerupController = new PowerUpController();
     private final int tamanhoTela = 512;
-    private final String pathProPlanoDeFundo = "/home/cc2018-ceb/ra214777/Downloads/7b000e9a5060837b7e018c42bf166486e66ed44cr1-1150-2048v2_128.jpg";
+    private final String pathProPlanoDeFundo = "src/sprites/background/background.jpg";
     private HashMap<Integer, Boolean> keyPressed = new HashMap<>();
-    
     Imagem planoDeFundo;
     private Mapa mapa = new Mapa(32,32);
     
@@ -33,6 +38,7 @@ public class Game implements Runnable {
         try {
         //	mapa.getMapaAleatorio();
         	mapa.getMapaArquivo();
+        	mapa.inicializaConteudoMapa(pontosController,powerupController, paredeController);
         } catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -86,7 +92,10 @@ public class Game implements Runnable {
 //        });
         
         planoDeFundo.draw(g);
-        mapa.desenhaMapa(g);
+        //mapa.desenhaMapa(g, pontosController);
+        pontosController.desenhaPontos(g);
+        paredeController.desenhaParede(g);
+        powerupController.desenhaPontos(g);
     }
 	
 	private void tick() {
@@ -100,6 +109,6 @@ public class Game implements Runnable {
 	
 	private void init() {
 		planoDeFundo = new Imagem(pathProPlanoDeFundo, new ParOrdenado(0,0), new Quadrado(0, 0, 16, 16));
-        display = new Display("draw image", tamanhoTela, tamanhoTela, this);
+        display = new Display("PACMAN322", tamanhoTela, tamanhoTela, this);
     }
 }
