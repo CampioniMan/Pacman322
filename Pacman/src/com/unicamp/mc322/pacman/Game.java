@@ -90,12 +90,11 @@ public class Game implements Runnable {
 //                keyPressed.put(e.getKeyCode(), false);
 //            }
 //        });
-        
         planoDeFundo.draw(g);
         //mapa.desenhaMapa(g, pontosController);
         pontosController.desenhaPontos(g);
         paredeController.desenhaParede(g);
-        powerupController.desenhaPontos(g);
+        powerupController.desenhaPowerUp(g);
     }
 	
 	private void tick() {
@@ -108,7 +107,7 @@ public class Game implements Runnable {
     }
 	
 	private void init() {
-		planoDeFundo = new Imagem(pathProPlanoDeFundo, new ParOrdenado(0,0), new Quadrado(0, 0, 16, 16));
+		planoDeFundo = new Imagem(pathProPlanoDeFundo, new ParOrdenado(0,0), new Quadrado(0, 0, 1, 1));
         display = new Display("PACMAN322", tamanhoTela, tamanhoTela, this);
     }
 }

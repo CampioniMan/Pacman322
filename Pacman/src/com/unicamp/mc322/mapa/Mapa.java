@@ -51,17 +51,17 @@ public class Mapa {
 		PowerUp g;
 		for (int i = 0; i < this.largura; i++) {
 			for (int j = 0; j < altura; j++) {
+				//System.out.println("i:"+i+"j:"+j);
 				if (mapa[i][j].equals(ComponentesMapa.PAREDE.getValor())) {
-					w = new Parede(new Quadrado(i*16, j*16, (i+1)*16, (j+1)*16),pathParede, new ParOrdenado(i*16,j*16));
+					w = new Parede(new Quadrado(0, 0, 1, 1),pathParede, new ParOrdenado(i*16,j*16));
 					//Adiciona o ponto no Controlador de pontos para que ele seja usado mais tarde em Game
 					wController.adicionarParede(w);
 				} else if (mapa[i][j].equals(ComponentesMapa.COMIDA.getValor())) {
-					p = new Pontos(new Quadrado(i*16, j*16, (i+1)*16, (j+1)*16),pathComidaPacman, new ParOrdenado(i*16,j*16));
+					p = new Pontos(new Quadrado(0, 0, 1, 1),pathComidaPacman, new ParOrdenado(i*16,j*16));
 					//Adiciona o ponto no Controlador de pontos para que ele seja usado mais tarde em Game
 					pController.adicionarPonto(p);
-				}
-				else if (mapa[i][j].equals(ComponentesMapa.POWERUP.getValor())) {
-					 g = new PowerUp(new Quadrado(i*16, j*16, (i+1)*16, (j+1)*16),pathPowerUpPacman, new ParOrdenado(i*16,j*16));
+				} else if (mapa[i][j].equals(ComponentesMapa.POWERUP.getValor())) {
+					 g = new PowerUp(new Quadrado(0, 0, 1, 1),pathPowerUpPacman, new ParOrdenado(i*16,j*16));
 					pwController.adicionarPonto(g);
 				}
 			}

@@ -44,7 +44,7 @@ public class PowerUpController {
 		return ponto;
 	}
 	
-	public void desenhaPontos(Graphics g) {
+	public void desenhaPowerUp(Graphics g) {
 		for (PowerUp p: powerupNoMapa) {
 			p.desenhaPowerup(g);
 		}

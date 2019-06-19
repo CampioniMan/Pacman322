@@ -22,10 +22,6 @@ public class PowerUp {
 		this.duracao = 30; //(?)
 	}
 	
-	public void mudarStatus() {
-		this.ativo = !this.ativo;
-	}
-	
 	public int getDuracao() {
 		return this.duracao;
 	}
