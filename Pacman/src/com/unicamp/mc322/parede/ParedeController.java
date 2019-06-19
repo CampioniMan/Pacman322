@@ -2,6 +2,7 @@ package com.unicamp.mc322.parede;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import com.unicamp.mc322.pacman.colisao.ColisorQuadrado;
 import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
 import com.unicamp.mc322.pacman.posicionamento.Quadrado;
 
@@ -15,6 +16,16 @@ public class ParedeController {
 	
 	public void adicionarParede(Parede p) {
 		this.paredeNoMapa.add(p);
+	}
+	
+	public boolean colidiuComQuadrado(ColisorQuadrado quadradao) {
+		for (Parede p: paredeNoMapa) {
+			if (quadradao.colidiuCom(p.getColider()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public int getPosParede(ParOrdenado coord) {

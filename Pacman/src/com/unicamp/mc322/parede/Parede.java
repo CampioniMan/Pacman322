@@ -33,4 +33,10 @@ public class Parede {
 	public void desenhaPonto(Graphics g) {
 		this.skin.draw(g);
 	}
+
+	public Quadrado getColider() {
+		return colider;
+	}
+	
+	
 }

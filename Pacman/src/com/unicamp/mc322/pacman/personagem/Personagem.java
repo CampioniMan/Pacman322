@@ -18,10 +18,10 @@ public abstract class Personagem {
 	
 	public void mover(Direcao direcao) {
 		if (direcao == Direcao.CIMA) {
-			this.moverEixoY(velocidade);
+			this.moverEixoY(-velocidade);
 		}
 		else if (direcao == Direcao.BAIXO) {
-			this.moverEixoY(-velocidade);
+			this.moverEixoY(velocidade);
 		}
 		else if (direcao == Direcao.DIREITA) {
 			this.moverEixoX(velocidade);
