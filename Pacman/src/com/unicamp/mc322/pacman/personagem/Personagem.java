@@ -32,11 +32,11 @@ public abstract class Personagem {
 	}
 	
 	private void moverEixoX(float variacaoEixoX) {
-		this.colider.getAreaTotal().getTopoEsquerdo().addX(variacaoEixoX);
+		this.getTopoEsquerdo().addX(variacaoEixoX);
 	}
 	
 	private void moverEixoY(float variacaoEixoY) {
-		this.colider.getAreaTotal().getTopoEsquerdo().addY(variacaoEixoY);
+		this.getTopoEsquerdo().addY(variacaoEixoY);
 	}
 	
 	public void draw(Graphics g) {
@@ -45,6 +45,10 @@ public abstract class Personagem {
 
 	public ColisorQuadrado getColider() {
 		return colider;
+	}
+	
+	public ParOrdenado getTopoEsquerdo() {
+		return colider.getAreaTotal().getTopoEsquerdo();
 	}
 
 	public float getVelocidade() {
