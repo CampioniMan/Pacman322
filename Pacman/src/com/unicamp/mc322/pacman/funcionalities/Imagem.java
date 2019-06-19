@@ -64,11 +64,11 @@ public class Imagem {
 	}
 	
 	private int getAltura() {
-		return (int)(this.img.getHeight() * tamanhoFinal.getAltura());
+		return (int)(tamanhoFinal.getAltura());
 	}
 	
 	private int getLargura() {
-		return (int)(this.img.getWidth() * tamanhoFinal.getLargura());
+		return (int)(tamanhoFinal.getLargura());
 	}
 	
 	public void draw(Graphics g) {

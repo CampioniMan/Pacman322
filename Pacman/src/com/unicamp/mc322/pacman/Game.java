@@ -93,7 +93,7 @@ public class Game implements Runnable {
     }
 	
 	private void init() {
-		planoDeFundo = new Imagem(pathProPlanoDeFundo, new ParOrdenado(0,0), new Quadrado(0, 0, 1, 1));
+		planoDeFundo = new Imagem(pathProPlanoDeFundo, new ParOrdenado(0,0), new Quadrado(0, 0, 512, 512));
         display = new Display("PACMAN322", tamanhoTela, tamanhoTela, this);
     }
 }
