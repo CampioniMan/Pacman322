@@ -32,4 +32,10 @@ public class ParOrdenado {
 		this.y += y;
 	}
 	
+	public boolean equals(ParOrdenado par) {
+		if (this.x == par.getX() && this.y == par.getY()) {
+			return true;
+		}
+		return false;
+	}
 }

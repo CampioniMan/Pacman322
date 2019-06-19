@@ -10,8 +10,14 @@ import java.util.Objects;
 import java.util.Random;
 
 import com.unicamp.mc322.pacman.funcionalities.Imagem;
+import com.unicamp.mc322.pacman.pontos.Pontos;
+import com.unicamp.mc322.pacman.pontos.PontosController;
+import com.unicamp.mc322.pacman.pontos.PowerUp;
+import com.unicamp.mc322.pacman.pontos.PowerUpController;
 import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
 import com.unicamp.mc322.pacman.posicionamento.Quadrado;
+import com.unicamp.mc322.parede.Parede;
+import com.unicamp.mc322.parede.ParedeController;
 
 public class Mapa {
 	
@@ -21,6 +27,7 @@ public class Mapa {
 	private Character[][] mapa;
 	private final String pathParede = "src/sprites/wall/parede.png";
 	private final String pathComidaPacman = "src/sprites/food/comida.png";
+	private final String pathPowerUpPacman = "src/sprites/food/powerup.png";
 	private final String pathMapa = "src/map/randMap/mapa.txt";
 	private final Integer qtdMapsDefault = 2;
 	
@@ -31,17 +38,31 @@ public class Mapa {
 		mapa = new Character[altura*16][largura*16];
 	}
 	
-	public void desenhaMapa(Graphics g) {
+	/*
+	public void desenhaMapa(Graphics g,PontosController Controller) {
 		Imagem imagemParede = new Imagem(pathParede, new ParOrdenado(0,0), new Quadrado(0, 0, 1, 1));
-		Imagem imagemComida = new Imagem(pathComidaPacman, new ParOrdenado(0,0), new Quadrado(0, 0, 1, 1));
- 		for (int i = 0; i < this.largura; i++) {
+		Pontos p;
+	}
+	*/
+	
+	public void inicializaConteudoMapa(PontosController pController,PowerUpController pwController, ParedeController wController) {
+		Parede w;
+		Pontos p;
+		PowerUp g;
+		for (int i = 0; i < this.largura; i++) {
 			for (int j = 0; j < altura; j++) {
+				//System.out.println("i:"+i+"j:"+j);
 				if (mapa[i][j].equals(ComponentesMapa.PAREDE.getValor())) {
-					imagemParede.setTopoEsquerdo(new ParOrdenado(i*16, j*16));
-					imagemParede.draw(g);
+					w = new Parede(new Quadrado(0, 0, 1, 1),pathParede, new ParOrdenado(i*16,j*16));
+					//Adiciona o ponto no Controlador de pontos para que ele seja usado mais tarde em Game
+					wController.adicionarParede(w);
 				} else if (mapa[i][j].equals(ComponentesMapa.COMIDA.getValor())) {
-					imagemComida.setTopoEsquerdo(new ParOrdenado(i*16, j*16));
-					imagemComida.draw(g);
+					p = new Pontos(new Quadrado(0, 0, 1, 1),pathComidaPacman, new ParOrdenado(i*16,j*16));
+					//Adiciona o ponto no Controlador de pontos para que ele seja usado mais tarde em Game
+					pController.adicionarPonto(p);
+				} else if (mapa[i][j].equals(ComponentesMapa.POWERUP.getValor())) {
+					 g = new PowerUp(new Quadrado(0, 0, 1, 1),pathPowerUpPacman, new ParOrdenado(i*16,j*16));
+					pwController.adicionarPonto(g);
 				}
 			}
  		}
