@@ -1,6 +1,8 @@
 package com.unicamp.mc322.pacman;
 
 import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -32,7 +34,9 @@ public class Game implements Runnable {
     private Mapa mapa = new Mapa(32,32);
     private Fantasma fantasmaAleatorio;
     private Fantasma fantasmaPrestigiador;
+    private FantasmaPerseguidor fantasmaPerseguidorTeste;
     private boolean hasFinishedInit = false;
+    private final int fontsize = 15;
     
     
     public synchronized void start() {
@@ -74,14 +78,34 @@ public class Game implements Runnable {
         display.panel.setFocusable(true);
         display.panel.requestFocusInWindow();
         planoDeFundo.draw(g);
-        //mapa.desenhaMapa(g, pontosController);
         pontosController.desenhaPontos(g);
         paredeController.desenhaParede(g);
         powerupController.desenhaPowerUp(g);
+        g.setFont(new Font("SansSerif", Font.BOLD, fontsize));
+        g.setColor(Color.white);
+        //g.drawString("Vidas: ", 0, 15);
+        //for (int i = 0; i<3; i++) {
+        	//Imagem vidasRestantes = new Imagem("src/sprites/pacman/download.png", new ParOrdenado((3+i)*16,0), new Quadrado(new ParOrdenado((3+i)*16,0),new ParOrdenado((4+i)*16,16)));
+            //vidasRestantes.draw(g);
+        //}
+        String stringPlacar = "Placar:";
+        if (placar < 10)
+        	stringPlacar += "0000" + placar;
+        else if (placar < 100)
+        	stringPlacar += "000" + placar;
+        else if (placar < 1000)
+        	stringPlacar += "00" + placar;
+        else if (placar < 10000)
+        	stringPlacar += "0" + placar;
+        else
+        	stringPlacar += placar;
+        g.drawString(stringPlacar, 400, 15);
         fantasmaAleatorio.calculaPosicaoNova(paredeController);
         fantasmaAleatorio.draw(g);
         fantasmaPrestigiador.calculaPosicaoNova(paredeController);
         fantasmaPrestigiador.draw(g);
+        fantasmaPerseguidorTeste.calculaPosicaoNova(paredeController, fantasmaAleatorio.getTopoEsquerdo());
+        fantasmaPerseguidorTeste.draw(g);
         
     }
 	
@@ -99,6 +123,7 @@ public class Game implements Runnable {
         
         fantasmaAleatorio = new FantasmaAleatorio(new Quadrado(16*16, 16*16,17*16,17*16));
         fantasmaPrestigiador = new FantasmaPrestigiador(new Quadrado(16*16, 16*16,17*16,17*16));
+        fantasmaPerseguidorTeste = new FantasmaPerseguidor(new Quadrado(16*16, 16*16,17*16,17*16));
         paredeController = new ParedeController();
         pontosController = new PontosController();
         powerupController = new PowerUpController();

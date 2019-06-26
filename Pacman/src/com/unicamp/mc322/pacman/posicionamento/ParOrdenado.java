@@ -1,4 +1,6 @@
 package com.unicamp.mc322.pacman.posicionamento;
+import java.math.*;
+
 
 public class ParOrdenado {
 	float x, y;
@@ -30,6 +32,11 @@ public class ParOrdenado {
 	
 	public void addY(float y) {
 		this.y += y;
+	}
+	
+	public double getDistancia(ParOrdenado par) {
+		double dist = Math.sqrt((par.getX()- this.x)*(par.getX()- this.x) + (par.getY()- this.y)*(par.getY()- this.y));
+		return dist;
 	}
 	
 	public boolean equals(ParOrdenado par) {
