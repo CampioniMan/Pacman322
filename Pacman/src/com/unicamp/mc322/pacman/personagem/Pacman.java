@@ -14,7 +14,7 @@ public class Pacman extends Personagem {
 	
 	public Pacman(Quadrado colider, String pathPraSkin) {
 		super(colider, pathPraSkin);
-		this.velocidade = 4;
+		this.velocidade = 8;
 	}
 	
 	public void irParaProximaPosicao(ParedeController paredeController)

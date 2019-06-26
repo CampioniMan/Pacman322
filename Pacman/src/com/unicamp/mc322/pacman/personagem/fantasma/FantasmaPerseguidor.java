@@ -11,6 +11,7 @@ import java.math.*;
 public class FantasmaPerseguidor extends Fantasma {
 	
 	private Direcao ultimaDir;
+	private Integer countPos = 0;
 	
 	public FantasmaPerseguidor(Quadrado colider) {
 		super(colider,  "src/sprites/ghosts/fantasmaazul1.png");
@@ -92,14 +93,13 @@ public class FantasmaPerseguidor extends Fantasma {
 	}
 
 	public void calculaPosicaoNova(ParedeController paredeController, ParOrdenado coord, Direcao dir) {
-		Direcao direcaoMovimento = getPosMaisProx(coord, dir);
-		mover(direcaoMovimento);
+		ultimaDir = getPosMaisProx(coord, dir);
+		mover(ultimaDir);
 		if (paredeController.colidiuComQuadrado(this.colider))
 		{
-			Direcao aux = direcaoMovimento;
-			direcaoMovimento = aux.getDirecaoOposta();
-			mover(direcaoMovimento);
-			calculaPosicaoNova(paredeController, coord, aux);
+			Direcao aux = ultimaDir;
+			ultimaDir = aux.getDirecaoOposta();
+			mover(ultimaDir);
 		}
 	}
 	
