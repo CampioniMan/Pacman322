@@ -108,8 +108,8 @@ public class Game implements Runnable {
         placar += pacman.irParaProximaPosicao(paredeController, pontosController, powerupController);
         fantasmaPrestigiador.calculaPosicaoNova(paredeController);
         fantasmaPrestigiador.draw(g);
-        //fantasmaPerseguidorTeste.calculaPosicaoNova(paredeController, fantasmaAleatorio.getTopoEsquerdo());
-        //fantasmaPerseguidorTeste.draw(g);
+        fantasmaPerseguidorTeste.calculaPosicaoNova(paredeController, pacman.getTopoEsquerdo());
+        fantasmaPerseguidorTeste.draw(g);
         
     }
 	
