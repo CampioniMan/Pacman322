@@ -2,8 +2,10 @@ package com.unicamp.mc322.pacman.pontos;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import com.unicamp.mc322.pacman.colisao.ColisorQuadrado;
 import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
 import com.unicamp.mc322.pacman.posicionamento.Quadrado;
+import com.unicamp.mc322.parede.Parede;
 
 public class PontosController {
 	private ArrayList<Pontos> pontosNoMapa;
@@ -46,5 +48,16 @@ public class PontosController {
 		for (Pontos p: pontosNoMapa) {
 			p.desenhaPonto(g);
 		}
+	}
+	
+	public boolean colidiuComQuadrado(ColisorQuadrado quadradao) {
+		for (Pontos p: pontosNoMapa) {
+			if (quadradao.colidiuCom(p.getColider()))
+			{
+				pontosNoMapa.remove(p);
+				return true;
+			}
+		}
+		return false;
 	}
 }

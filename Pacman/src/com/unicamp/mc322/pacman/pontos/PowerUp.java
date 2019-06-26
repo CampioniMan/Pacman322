@@ -26,6 +26,10 @@ public class PowerUp {
 		return this.duracao;
 	}
 	
+	public Quadrado getColider() {
+		return colider;
+	}
+	
 	public int getPontos() {
 		return valor;
 	}

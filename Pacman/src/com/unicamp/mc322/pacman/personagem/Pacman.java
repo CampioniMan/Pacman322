@@ -8,6 +8,8 @@ import com.unicamp.mc322.parede.ParedeController;
 import java.awt.event.KeyEvent;
 
 import com.unicamp.mc322.pacman.funcionalities.*;
+import com.unicamp.mc322.pacman.pontos.PontosController;
+import com.unicamp.mc322.pacman.pontos.PowerUpController;
 
 public class Pacman extends Personagem {
 	Direcao ultimaPosicao = Direcao.DIREITA;
@@ -17,9 +19,10 @@ public class Pacman extends Personagem {
 		this.velocidade = 4;
 	}
 	
-	public void irParaProximaPosicao(ParedeController paredeController)
+	
+	 //Retorna a pontuação que o user ganhou indo pra posição x
+	public int irParaProximaPosicao(ParedeController paredeController, PontosController pontosController, PowerUpController pwController)
 	{
-		
 		if (ControleBotao.isKeyPressed(KeyEvent.VK_W))
 		{
 			ultimaPosicao = Direcao.CIMA;
@@ -37,7 +40,6 @@ public class Pacman extends Personagem {
 			ultimaPosicao = Direcao.BAIXO;
 		}
 		mover(ultimaPosicao);
-		
 		if (paredeController.colidiuComQuadrado(this.colider))
 		{
 			Direcao aux;
@@ -46,7 +48,27 @@ public class Pacman extends Personagem {
 			else
 				aux = Direcao.values()[ultimaPosicao.ordinal()-1];
 			mover(aux);
+			return PontosComponente.PAREDE.getValor();
 		}
+		if (pontosController.colidiuComQuadrado(this.colider)) {
+			return PontosComponente.COMIDA.getValor();
+		}
+		if (pontosController.colidiuComQuadrado(this.colider)) {
+			return PontosComponente.COMIDA.getValor();
+		}
+		if (pwController.colidiuComQuadrado(this.colider)) {
+			return PontosComponente.POWERUP.getValor();
+		}
+		if (ultimaPosicao == Direcao.DIREITA)
+			this.skin = new Imagem("src/sprites/pacman/download.png", getTopoEsquerdo(), colider.getAreaTotal());
+		else if (ultimaPosicao == Direcao.ESQUERDA)
+			this.skin = new Imagem("src/sprites/pacman/download3.png", getTopoEsquerdo(), colider.getAreaTotal());
+		else if (ultimaPosicao == Direcao.CIMA)
+			this.skin = new Imagem("src/sprites/pacman/download2.png", getTopoEsquerdo(), colider.getAreaTotal());
+		else if (ultimaPosicao == Direcao.BAIXO)
+			this.skin = new Imagem("src/sprites/pacman/download4.png", getTopoEsquerdo(), colider.getAreaTotal());
+		return PontosComponente.VAZIO.getValor();
+		
 	}
 	
 }

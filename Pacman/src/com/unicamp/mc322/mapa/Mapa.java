@@ -94,7 +94,11 @@ public class Mapa {
 	}
 	
 	private boolean inicioPacman(int j, int i) {
-		return (j == 1 && i == 1);
+		return (j == 100 && i == 100);
+	}
+	
+	private boolean powerupDefault(int j, int i) {
+		return ((j == 1 && i == 1) || (j == 1 && i == 30));
 	}
 	
 	private void colocarParedeL(int i, int j) {
@@ -145,12 +149,14 @@ public class Mapa {
 	}
 	
 	public void getMapaAleatorio() throws Exception{
-		for (int i = 0; i < largura/2;i++) {
-			for (int j = 0; j< altura; j++) {
+		for (int i = 0; i < altura/2;i++) {
+			for (int j = 0; j< largura; j++) {
 				if (inicioFantasma(i, j) || inicioPacman(i,j))
 					mapa[i][j] = ComponentesMapa.VAZIO.getValor();
 				else if (paredeDefault(i,j)) 
 					mapa[i][j] = ComponentesMapa.PAREDE.getValor();
+				else if (powerupDefault(i,j))
+					mapa[i][j] = ComponentesMapa.POWERUP.getValor();
 				else {
 					Random num =  new Random();
 					if (num.nextInt(100) < 90  && mapa[i][j] != ComponentesMapa.PAREDE.getValor())

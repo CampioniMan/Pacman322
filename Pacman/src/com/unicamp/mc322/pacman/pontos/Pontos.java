@@ -22,6 +22,10 @@ public class Pontos {
 		return this.valor;
 	}
 	
+	public Quadrado getColider() {
+		return colider;
+	}
+	
 	public ParOrdenado getPosicao() {
 		return this.posicao;
 	}

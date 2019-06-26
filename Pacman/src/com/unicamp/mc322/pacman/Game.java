@@ -24,7 +24,7 @@ public class Game implements Runnable {
 	private Display display;
     private boolean running;
     private Thread t;
-    private int placar = 99;
+    private int placar = 0;
     private PontosController pontosController;
     private ParedeController paredeController;
     private PowerUpController powerupController;
@@ -105,7 +105,7 @@ public class Game implements Runnable {
         fantasmaAleatorio.calculaPosicaoNova(paredeController);
         fantasmaAleatorio.draw(g);
         pacman.draw(g);
-        pacman.irParaProximaPosicao(paredeController);
+        placar += pacman.irParaProximaPosicao(paredeController, pontosController, powerupController);
         fantasmaPrestigiador.calculaPosicaoNova(paredeController);
         fantasmaPrestigiador.draw(g);
         //fantasmaPerseguidorTeste.calculaPosicaoNova(paredeController, fantasmaAleatorio.getTopoEsquerdo());
@@ -132,7 +132,7 @@ public class Game implements Runnable {
         pontosController = new PontosController();
         powerupController = new PowerUpController();
         controleBotao = new ControleBotao();
-        pacman = new Pacman(new Quadrado(16,16,2*16,2*16), "src/sprites/pacman/pacman1.png");
+        pacman = new Pacman(new Quadrado(16,16,2*16,2*16), "src/sprites/pacman/download.png");
         
         try {
         	mapa.getMapaAleatorio();

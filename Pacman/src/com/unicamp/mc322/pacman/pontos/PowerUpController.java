@@ -3,6 +3,7 @@ package com.unicamp.mc322.pacman.pontos;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import com.unicamp.mc322.pacman.colisao.ColisorQuadrado;
 import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
 
 public class PowerUpController {
@@ -48,5 +49,19 @@ public class PowerUpController {
 		for (PowerUp p: powerupNoMapa) {
 			p.desenhaPowerup(g);
 		}
+	}
+	
+	
+	
+	public boolean colidiuComQuadrado(ColisorQuadrado quadradao) {
+		for (PowerUp p: powerupNoMapa) {
+			if (quadradao.colidiuCom(p.getColider()))
+			{
+				ativo = true;
+				powerupNoMapa.remove(p);
+				return true;
+			}
+		}
+		return false;
 	}
 }
