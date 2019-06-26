@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import com.unicamp.mc322.mapa.Mapa;
 import com.unicamp.mc322.pacman.funcionalities.*;
+import com.unicamp.mc322.pacman.personagem.Pacman;
 import com.unicamp.mc322.pacman.personagem.fantasma.*;
 import com.unicamp.mc322.pacman.pontos.PontosController;
 import com.unicamp.mc322.pacman.pontos.PowerUpController;
@@ -30,6 +31,7 @@ public class Game implements Runnable {
     private ControleBotao controleBotao;	
     Imagem planoDeFundo;
     private Mapa mapa = new Mapa(32,32);
+    private Pacman pacman;
     private Fantasma fantasmaAleatorio;
     private Fantasma fantasmaPrestigiador;
     private boolean hasFinishedInit = false;
@@ -80,6 +82,8 @@ public class Game implements Runnable {
         powerupController.desenhaPowerUp(g);
         fantasmaAleatorio.calculaPosicaoNova(paredeController);
         fantasmaAleatorio.draw(g);
+        pacman.draw(g);
+        pacman.irParaProximaPosicao(paredeController);
         fantasmaPrestigiador.calculaPosicaoNova(paredeController);
         fantasmaPrestigiador.draw(g);
         
@@ -103,6 +107,7 @@ public class Game implements Runnable {
         pontosController = new PontosController();
         powerupController = new PowerUpController();
         controleBotao = new ControleBotao();
+        pacman = new Pacman(new Quadrado(16*16, 19*16,17*16,20*16), "src/sprites/pacman/pacman1.png");
         
         try {
         	mapa.getMapaAleatorio();
