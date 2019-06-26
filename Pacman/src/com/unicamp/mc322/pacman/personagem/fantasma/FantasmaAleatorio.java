@@ -7,7 +7,7 @@ import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
 import com.unicamp.mc322.pacman.posicionamento.Quadrado;
 import com.unicamp.mc322.parede.ParedeController;
 
-public class FantasmaAleatorio extends Fanstasma {
+public class FantasmaAleatorio extends Fantasma {
 
 	Direcao ultimaDirecao = Direcao.CIMA;
 	private Integer countPos = 0;
@@ -17,6 +17,7 @@ public class FantasmaAleatorio extends Fanstasma {
 		this.velocidade = 4;
 	}
 	
+	@Override
 	public void calculaPosicaoNova(ParedeController paredeController) {
 		if (countPos++ > 6 ) {
 			countPos = 0;
