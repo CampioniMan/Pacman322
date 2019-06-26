@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class ControleBotao {
-    private final HashMap<Integer, Boolean> keyPressed = new HashMap<>();
+    private static HashMap<Integer, Boolean> keyPressed = new HashMap<>();
     private KeyAdapter keyAdapter;
     
 	public KeyAdapter getKeyAdapter() {
@@ -35,7 +35,7 @@ public class ControleBotao {
 
 	
 
-	public Boolean isKeyPressed(Integer keyCode) {
+	public static boolean isKeyPressed(Integer keyCode) {
 		return Objects.nonNull(keyPressed.get(keyCode))?keyPressed.get(keyCode):false;
 	}
 	

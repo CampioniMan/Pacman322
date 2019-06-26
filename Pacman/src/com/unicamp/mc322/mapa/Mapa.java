@@ -97,23 +97,77 @@ public class Mapa {
 		return (j == 1 && i == 1);
 	}
 	
+	private void colocarParedeL(int i, int j) {
+		if (mapa[i][j]!=ComponentesMapa.PAREDE.getValor()) {
+			Random num = new Random();
+			int sentido = num.nextInt(4);
+			if (sentido == 0) {
+				if (j < altura-1) {
+					mapa[i][j] = ComponentesMapa.PAREDE.getValor();
+					mapa[i][j+1] = ComponentesMapa.PAREDE.getValor();
+//					mapa[i][j+2] = ComponentesMapa.PAREDE.getValor();
+					mapa[i+1][j] = ComponentesMapa.PAREDE.getValor();
+//					mapa[i+2][j] = ComponentesMapa.PAREDE.getValor();
+				}else
+					colocarParedeL(i, j);
+			}else if(sentido == 1) {
+				if (j < altura-1) {
+					mapa[i][j] = ComponentesMapa.PAREDE.getValor();
+					mapa[i][j+1] = ComponentesMapa.PAREDE.getValor();
+//					mapa[i][j+2] = ComponentesMapa.PAREDE.getValor();
+					mapa[i+1][j+1] = ComponentesMapa.PAREDE.getValor();
+//					mapa[i+2][j+2] = ComponentesMapa.PAREDE.getValor();
+				}else
+					colocarParedeL(i, j);
+			} else if (sentido== 2) {
+				if (i>0) {
+					mapa[i][j] = ComponentesMapa.PAREDE.getValor();
+					mapa[i][j+1] = ComponentesMapa.PAREDE.getValor();
+//					mapa[i][j+2] = ComponentesMapa.PAREDE.getValor();
+					mapa[i-1][j+1] = ComponentesMapa.PAREDE.getValor();
+//					mapa[i-2][j+2] = ComponentesMapa.PAREDE.getValor();
+				}else
+					colocarParedeL(i, j);
+			} else if (sentido== 2) {
+				if (j>0) {
+					mapa[i][j] = ComponentesMapa.PAREDE.getValor();
+					mapa[i][j-1] = ComponentesMapa.PAREDE.getValor();
+//					mapa[i][j-2] = ComponentesMapa.PAREDE.getValor();
+					mapa[i+1][j] = ComponentesMapa.PAREDE.getValor();
+//					mapa[i+2][j] = ComponentesMapa.PAREDE.getValor();
+				}else
+					colocarParedeL(i, j);
+			}
+			else {
+				mapa[i][j] = ComponentesMapa.COMIDA.getValor();
+			}
+		}
+	}
 	
 	public void getMapaAleatorio() throws Exception{
-		for (int i = 0; i < altura;i++) {
-			for (int j = 0; j< largura; j++) {
+		for (int i = 0; i < largura/2;i++) {
+			for (int j = 0; j< altura; j++) {
 				if (inicioFantasma(i, j) || inicioPacman(i,j))
 					mapa[i][j] = ComponentesMapa.VAZIO.getValor();
 				else if (paredeDefault(i,j)) 
 					mapa[i][j] = ComponentesMapa.PAREDE.getValor();
 				else {
 					Random num =  new Random();
-					if (num.nextInt(5) < 4 )
+					if (num.nextInt(100) < 90  && mapa[i][j] != ComponentesMapa.PAREDE.getValor())
 						mapa[i][j] = ComponentesMapa.COMIDA.getValor();
 					else
-						mapa[i][j] = ComponentesMapa.PAREDE.getValor();
+						colocarParedeL(i, j);
 				}
+					
 			}
 		}
+		
+		for (int i = altura-1,k=0; i >= altura/2;i--,k++) {
+			for (int j = 0; j< largura; j++) {
+				mapa[i][j] = mapa[k][j];
+			}
+		}
+		
 		salvaMapaArquivo(pathMapa);
 	}
 	
