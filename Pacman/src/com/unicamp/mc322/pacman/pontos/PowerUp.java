@@ -12,18 +12,12 @@ public class PowerUp {
 	private ParOrdenado posicao;
 	private final int valor = 10;
 	private boolean ativo;
-	private int duracao;
 	
 	public PowerUp(Quadrado colider, String pathPraSkin, ParOrdenado posicao) {
 		this.skin = new Imagem(pathPraSkin, posicao, colider);
 		this.colider = colider;
 		this.posicao = posicao;
 		this.ativo = false;
-		this.duracao = 30; //(?)
-	}
-	
-	public int getDuracao() {
-		return this.duracao;
 	}
 	
 	public Quadrado getColider() {

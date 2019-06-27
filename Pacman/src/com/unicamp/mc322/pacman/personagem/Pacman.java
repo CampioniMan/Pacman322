@@ -59,7 +59,10 @@ public class Pacman extends Personagem {
 		if (pwController.colidiuComQuadrado(this.colider)) {
 			return PontosComponente.POWERUP.getValor();
 		}
-		if (ultimaPosicao == Direcao.DIREITA)
+		if (pwController.estaAtivo()) {
+			this.skin = new Imagem("src/sprites/pacman/buff.png", getTopoEsquerdo(), colider.getAreaTotal());
+		}
+		else if (ultimaPosicao == Direcao.DIREITA)
 			this.skin = new Imagem("src/sprites/pacman/download.png", getTopoEsquerdo(), colider.getAreaTotal());
 		else if (ultimaPosicao == Direcao.ESQUERDA)
 			this.skin = new Imagem("src/sprites/pacman/download3.png", getTopoEsquerdo(), colider.getAreaTotal());

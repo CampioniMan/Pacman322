@@ -83,8 +83,7 @@ public class Game implements Runnable {
         pontosController.desenhaPontos(g);
         paredeController.desenhaParede(g);
         powerupController.desenhaPowerUp(g);
-        g.setFont(new Font("SansSerif", Font.BOLD, fontsize));
-        g.setColor(Color.white);
+        
         //g.drawString("Vidas: ", 0, 15);
         //for (int i = 0; i<3; i++) {
         	//Imagem vidasRestantes = new Imagem("src/sprites/pacman/download.png", new ParOrdenado((3+i)*16,0), new Quadrado(new ParOrdenado((3+i)*16,0),new ParOrdenado((4+i)*16,16)));
@@ -101,17 +100,34 @@ public class Game implements Runnable {
         	stringPlacar += "0" + placar;
         else
         	stringPlacar += placar;
-        g.drawString(stringPlacar, 400, 15);
+        drawText(g,stringPlacar, 400, 15);
         fantasmaAleatorio.calculaPosicaoNova(paredeController);
         fantasmaAleatorio.draw(g);
+        powerupController.diminiuTempo();
         pacman.draw(g);
         placar += pacman.irParaProximaPosicao(paredeController, pontosController, powerupController);
         fantasmaPrestigiador.calculaPosicaoNova(paredeController);
         fantasmaPrestigiador.draw(g);
         fantasmaPerseguidorTeste.calculaPosicaoNova(paredeController, pacman.getTopoEsquerdo());
         fantasmaPerseguidorTeste.draw(g);
+        if (pontosController.estaVazio() == true) {
+        	planoDeFundo.draw(g);
+        	drawText(g, "VOCÊ GANHOU!!!! GERANDO NOVO MAPA", 220,260);
+        	this.init();
+			return;
+		}
         
     }
+	
+	//1 segundo é 1000milisegundos
+	//0,05 segundos -> 50 milisegundos
+	//30 segundos -> x milisegundos
+	
+	private void drawText(Graphics g, String string, int x, int y) {
+		g.setFont(new Font("SansSerif", Font.BOLD, fontsize));
+        g.setColor(Color.white);
+        g.drawString(string, x, y);
+	}
 	
 	private void tick() {
     	try {
@@ -124,7 +140,6 @@ public class Game implements Runnable {
 	
 	private void init() {
 		planoDeFundo = new Imagem(pathProPlanoDeFundo, new ParOrdenado(0,0), new Quadrado(0, 0, 512, 512));
-        
         fantasmaAleatorio = new FantasmaAleatorio(new Quadrado(16*16, 16*16,17*16,17*16));
         fantasmaPrestigiador = new FantasmaPrestigiador(new Quadrado(16*16, 16*16,17*16,17*16));
         fantasmaPerseguidorTeste = new FantasmaPerseguidor(new Quadrado(16*16, 16*16,17*16,17*16));
@@ -135,13 +150,14 @@ public class Game implements Runnable {
         pacman = new Pacman(new Quadrado(16,16,2*16,2*16), "src/sprites/pacman/download.png");
         
         try {
-        	mapa.getMapaAleatorio();
-//        	mapa.getMapaArquivo();
+        	//mapa.getMapaAleatorio();
+        	mapa.getMapaArquivo();
         	mapa.inicializaConteudoMapa(pontosController,powerupController, paredeController);
         } catch (Exception e) {
 			// TODO: handle exception
 		}
         hasFinishedInit = true;
-        display = new Display("PACMAN322", tamanhoTela, tamanhoTela, this);
+        if (display == null)
+        	display = new Display("PACMAN322", tamanhoTela, tamanhoTela, this);
     }
 }

@@ -9,15 +9,22 @@ import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
 public class PowerUpController {
 	private ArrayList<PowerUp> powerupNoMapa;
 	private boolean ativo;
+	private final int duracao = 3000;
+	private int tempoRestante;
 	//private ArrayList<Pontos> pontosColetados;
 	
 	public PowerUpController() {
 		powerupNoMapa = new ArrayList();
 		this.ativo = false;
+		this.tempoRestante = 0;
 	}
 	
 	public void adicionarPonto(PowerUp p) {
 		this.powerupNoMapa.add(p);
+	}
+	
+	public boolean estaAtivo() {
+		return ativo;
 	}
 	
 	public int getPosPowerUp(ParOrdenado coord) {
@@ -51,6 +58,11 @@ public class PowerUpController {
 		}
 	}
 	
+	public void diminiuTempo() {
+		tempoRestante -= 50;
+		if (tempoRestante == 0)
+			ativo = false;
+	}
 	
 	
 	public boolean colidiuComQuadrado(ColisorQuadrado quadradao) {
@@ -58,6 +70,7 @@ public class PowerUpController {
 			if (quadradao.colidiuCom(p.getColider()))
 			{
 				ativo = true;
+				tempoRestante = duracao;
 				powerupNoMapa.remove(p);
 				return true;
 			}

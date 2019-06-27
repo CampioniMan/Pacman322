@@ -29,6 +29,12 @@ public class PontosController {
 		return pos;
 	}
 	
+	public boolean estaVazio() {
+		if (pontosNoMapa.size() == 0)
+			return true;
+		return false;
+	}
+	
 	//Mudar com relação ao colider??? Falar com o bird
 	public int getPontos(ParOrdenado coord) {
 		//Comeu o ponto 'x'
