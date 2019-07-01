@@ -1,24 +1,20 @@
 package com.unicamp.mc322.pacman.personagem.fantasma;
 
-import java.util.Random;
-
 import com.unicamp.mc322.pacman.posicionamento.Direcao;
 import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
 import com.unicamp.mc322.pacman.posicionamento.Quadrado;
 import com.unicamp.mc322.parede.ParedeController;
-import java.math.*;
 
-public class FantasmaPerseguidor extends Fantasma {
-	
+public class FantasmaEvasivo extends Fantasma {
 	private Direcao ultimaDir;
 	private Integer countPos = 0;
 	
-	public FantasmaPerseguidor(Quadrado colider) {
-		super(colider,  "src/sprites/ghosts/fantasmaazul1.png");
+	public FantasmaEvasivo(Quadrado colider) {
+		super(colider,  "src/sprites/ghosts/fantasmarosa1.png");
 		this.velocidade = 4;
 	}
 	
-	private Direcao getPosMaisProx(ParOrdenado topoEsquerdo) {
+	private Direcao getPosMaisDistante(ParOrdenado topoEsquerdo) {
 		Direcao dir;
 		ParOrdenado novaPos;
 		ParOrdenado minhaPos = this.skin.getTopoEsquerdo();
@@ -32,18 +28,18 @@ public class FantasmaPerseguidor extends Fantasma {
 		double distEsquerda = novaPos.getDistancia(topoEsquerdo);
 		double minDir = Math.min(Math.min(distEsquerda, distDireita), Math.min(distCima, distBaixo));
 		if (minDir == distCima)
-			dir = Direcao.CIMA;
-		else if (minDir == distBaixo)
 			dir = Direcao.BAIXO;
+		else if (minDir == distBaixo)
+			dir = Direcao.CIMA;
 		else if (minDir == distEsquerda)
-			dir = Direcao.ESQUERDA;
-		else
 			dir = Direcao.DIREITA;
+		else
+			dir = Direcao.ESQUERDA;
 		return dir;
 	}
 	
 	//No caso da posição mais próxima ser uma parede ele acha a segunda posição mais proxima;
-	private Direcao getPosMaisProx(ParOrdenado topoEsquerdo, Direcao jaVisitou){
+	private Direcao getPosMaisDistante(ParOrdenado topoEsquerdo, Direcao jaVisitou){
 		Direcao dir;
 		ParOrdenado novaPos;
 		ParOrdenado minhaPos = this.skin.getTopoEsquerdo();
@@ -79,13 +75,22 @@ public class FantasmaPerseguidor extends Fantasma {
 		return dir;
 	}
 	
+	
 	@Override
 	public void calculaPosicaoNova(ParedeController paredeController, ParOrdenado posicaoPacman, ParOrdenado ... posicaoFantasmas) {
-		calculaPosicaoNova(paredeController, posicaoPacman);
+		
+		calculaPosicaoNova(paredeController, posicaoFantasmas);
 	}
 	
-	private void calculaPosicaoNova(ParedeController paredeController, ParOrdenado coord) {
-		Direcao direcaoMovimento = getPosMaisProx(coord);
+	private void calculaPosicaoNova(ParedeController paredeController, ParOrdenado ... fantasmas) {
+		float coordX = 0, coordY = 0;
+		for (ParOrdenado fantasma: fantasmas) {
+			coordX += fantasma.getX() / fantasmas.length;
+			coordY += fantasma.getY() / fantasmas.length;
+		}
+		ParOrdenado coord = new ParOrdenado(coordX,
+											coordY);
+		Direcao direcaoMovimento = getPosMaisDistante(coord);
 		mover(direcaoMovimento);
 		if (paredeController.colidiuComQuadrado(this.colider))
 		{
@@ -97,7 +102,7 @@ public class FantasmaPerseguidor extends Fantasma {
 	}
 
 	public void calculaPosicaoNova(ParedeController paredeController, ParOrdenado coord, Direcao dir) {
-		ultimaDir = getPosMaisProx(coord, dir);
+		ultimaDir = getPosMaisDistante(coord, dir);
 		mover(ultimaDir);
 		if (paredeController.colidiuComQuadrado(this.colider))
 		{
@@ -106,7 +111,4 @@ public class FantasmaPerseguidor extends Fantasma {
 			mover(ultimaDir);
 		}
 	}
-	
-	
-
 }

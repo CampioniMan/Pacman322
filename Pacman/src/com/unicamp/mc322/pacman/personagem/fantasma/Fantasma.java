@@ -16,7 +16,7 @@ public abstract class Fantasma extends Personagem {
 		this.velocidade = 4;
 	}
 	
-	public void calculaPosicaoNova(ParedeController paredeController) {
+	public void calculaPosicaoNova(ParedeController paredeController, ParOrdenado posicaoPacman, ParOrdenado ... posicaoFantasmas) {
 		mover(Direcao.CIMA);
 	}
 	

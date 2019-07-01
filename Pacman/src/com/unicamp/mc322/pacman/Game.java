@@ -34,9 +34,11 @@ public class Game implements Runnable {
     Imagem planoDeFundo;
     private Mapa mapa = new Mapa(32,32);
     private Pacman pacman;
-    private Fantasma fantasmaAleatorio;
-    private Fantasma fantasmaPrestigiador;
-    private FantasmaPerseguidor fantasmaPerseguidorTeste;
+    private FantasmaController fantasmaController;
+ //   private Fantasma fantasmaAleatorio;
+  //  private Fantasma fantasmaPrestigiador;
+   // private FantasmaPerseguidor fantasmaPerseguidorTeste;
+    //private FantasmaEvasivo fantasmaEvasivo;
     private boolean hasFinishedInit = false;
     private final int fontsize = 15;
     
@@ -101,15 +103,13 @@ public class Game implements Runnable {
         else
         	stringPlacar += placar;
         drawText(g,stringPlacar, 400, 15);
-        fantasmaAleatorio.calculaPosicaoNova(paredeController);
-        fantasmaAleatorio.draw(g);
+        
         powerupController.diminiuTempo();
         pacman.draw(g);
         placar += pacman.irParaProximaPosicao(paredeController, pontosController, powerupController);
-        fantasmaPrestigiador.calculaPosicaoNova(paredeController);
-        fantasmaPrestigiador.draw(g);
-        fantasmaPerseguidorTeste.calculaPosicaoNova(paredeController, pacman.getTopoEsquerdo());
-        fantasmaPerseguidorTeste.draw(g);
+        fantasmaController.move(paredeController, pacman.getTopoEsquerdo());
+        fantasmaController.desenhaFantasmas(g);
+        System.out.println(fantasmaController.colidiuComQuadrado(pacman.getColider()));
         if (pontosController.estaVazio() == true) {
         	planoDeFundo.draw(g);
         	drawText(g, "VOCÊ GANHOU!!!! GERANDO NOVO MAPA", 220,260);
@@ -140,15 +140,13 @@ public class Game implements Runnable {
 	
 	private void init() {
 		planoDeFundo = new Imagem(pathProPlanoDeFundo, new ParOrdenado(0,0), new Quadrado(0, 0, 512, 512));
-        fantasmaAleatorio = new FantasmaAleatorio(new Quadrado(16*16, 16*16,17*16,17*16));
-        fantasmaPrestigiador = new FantasmaPrestigiador(new Quadrado(16*16, 16*16,17*16,17*16));
-        fantasmaPerseguidorTeste = new FantasmaPerseguidor(new Quadrado(16*16, 16*16,17*16,17*16));
+        
         paredeController = new ParedeController();
         pontosController = new PontosController();
         powerupController = new PowerUpController();
         controleBotao = new ControleBotao();
         pacman = new Pacman(new Quadrado(16,16,2*16,2*16), "src/sprites/pacman/download.png");
-        
+        fantasmaController = new FantasmaController();
         try {
         	//mapa.getMapaAleatorio();
         	mapa.getMapaArquivo();

@@ -18,7 +18,7 @@ public class FantasmaAleatorio extends Fantasma {
 	}
 	
 	@Override
-	public void calculaPosicaoNova(ParedeController paredeController) {
+	public void calculaPosicaoNova(ParedeController paredeController, ParOrdenado posicaoPacman, ParOrdenado ... posicaoFantasmas) {
 		if (countPos++ > 6 ) {
 			countPos = 0;
 			ultimaDirecao = Direcao.values()[(new Random()).nextInt(4)];

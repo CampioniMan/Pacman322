@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.unicamp.mc322.pacman.colisao.ColisorQuadrado;
 import com.unicamp.mc322.pacman.posicionamento.Direcao;
+import com.unicamp.mc322.pacman.posicionamento.ParOrdenado;
 import com.unicamp.mc322.pacman.posicionamento.Quadrado;
 import com.unicamp.mc322.parede.ParedeController;
 
@@ -19,14 +20,14 @@ public class FantasmaPrestigiador extends Fantasma{
 		return new ColisorQuadrado(X,Y ,X + 16,Y +16);
 	}
 	@Override
-	public void calculaPosicaoNova(ParedeController paredeController) {
+	public void calculaPosicaoNova(ParedeController paredeController, ParOrdenado posicaoPacman, ParOrdenado ... posicaoFantasmas) {
 		
 		if (countPos++ > 10 ) {
 		
 			ColisorQuadrado colisorQuadrado = calcularNovoColider();
 			if (paredeController.colidiuComQuadrado(colisorQuadrado))
 			{
-				calculaPosicaoNova(paredeController);
+				calculaPosicaoNova(paredeController, posicaoPacman, posicaoFantasmas);
 			}
 			else
 			{
